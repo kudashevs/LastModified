@@ -1,5 +1,11 @@
 Changelog for LastModified
 
+1.0.1-pl
+==============
+- Add maxage and expires options
+- Add HTTP protocol version
+- Update lexicon files and docs
+
 1.0.0-pl
 ==============
 - Initial release
