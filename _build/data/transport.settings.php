@@ -1,6 +1,11 @@
 <?php
 $settings = array();
 $tmp = array(
+    'response' => array(
+        'xtype' => 'textfield',
+        'value' => 'private',
+        'area' => PKG_NAME_LOWER . '.main',
+    ),
     'maxage' => array(
         'xtype' => 'textfield',
         'value' => '3600',

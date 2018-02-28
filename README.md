@@ -8,5 +8,6 @@ After installation use System settings lastmodified namespace to set preferable 
 
 ### Available system settings (namespace lastmodified):
 
-* maxage – set value of max-age Cache-control header in seconds, default is 3600.
-* expires – set value of Expires header current time offset in seconds, efault is 3600.
+* response - set value of Cache-control response directive, аvailable values: "private", "public".';
+* maxage – set value of Cache-control max-age directive in seconds, default is 3600.
+* expires – set value of Expires header current time offset in seconds, default is 3600.

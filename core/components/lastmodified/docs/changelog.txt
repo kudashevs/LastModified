@@ -1,5 +1,11 @@
 Changelog for LastModified
 
+1.0.2-pl
+==============
+- Add response directive option
+- Update lexicon files and docs
+- Some improvements
+
 1.0.1-pl
 ==============
 - Add maxage and expires options
