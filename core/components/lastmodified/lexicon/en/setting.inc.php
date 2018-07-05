@@ -7,3 +7,5 @@ $_lang['setting_lastmodified.maxage'] = 'Cache-control max-age';
 $_lang['setting_lastmodified.maxage_desc'] = 'Set value of Cache-control max-age directive in seconds. Default is 3600.';
 $_lang['setting_lastmodified.expires'] = 'Expires offset';
 $_lang['setting_lastmodified.expires_desc'] = 'Set value of Expires header current time offset in seconds. Default is 3600.';
+$_lang['setting_lastmodified.update_parent'] = 'Update parent';
+$_lang['setting_lastmodified.update_parent_desc'] = 'Updates last editing date of parent resource to reacquire its content. Default false.';

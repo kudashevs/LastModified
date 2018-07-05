@@ -7,6 +7,7 @@ $tmp = array(
         'description' => 'MODx Revolution plugin which handle request If-Modified-Since.',
         'events' => array(
             'OnWebPagePrerender' => 0,
+            'OnDocFormSave' => 0,
         ),
     ),
 );

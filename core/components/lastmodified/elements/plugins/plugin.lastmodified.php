@@ -3,7 +3,11 @@
  * MODx Revolution plugin which handle request If-Modified-Since
  *
  * @package lastmodified
- * @var string $dtm Last update document time
+ * @var integer $dtm Value of last update time of document
+ * @var integer $ltm Value of HTTP_IF_MODIFIED_SINCE from request
+ * @var string $rule Cache-control directive (public, private)
+ * @var integer $maxage Cache max age in seconds
+ * @var integer $expire Cache expire in seconds
  */
 if ($modx->event->name == 'OnWebPagePrerender') {
     $dtm = ($modx->resource->get('editedon')) ? strtotime($modx->resource->get('editedon')) : strtotime($modx->resource->get('createdon'));
@@ -36,4 +40,26 @@ if ($modx->event->name == 'OnWebPagePrerender') {
     header('Cache-control: ' . $rule . ', max-age=' . $maxage);
     header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expire));
     return '';
+}
+
+/**
+ * Update parent editedon field
+ *
+ * @var modResource $resource Current resource object
+ * @var modResource $parent Parent resource object
+ */
+if ($modx->event->name == 'OnDocFormSave') {
+    if ($modx->getOption('lastmodified.update_parent')) {
+        $resource = $modx->getObject('modResource', $id);
+        $parent = $modx->getObject('modResource', $resource->get('parent'));
+
+        if (!$parent instanceof modResource) {
+            $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong parent ' . $parent . ' for document ' . $id. '.');
+            return '';
+        }
+
+        $parent->set('editedon', time());
+        $parent->save();
+        return '';
+    }
 }

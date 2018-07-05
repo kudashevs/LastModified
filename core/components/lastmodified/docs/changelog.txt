@@ -1,5 +1,10 @@
 Changelog for LastModified
 
+1.0.3-pl
+==============
+- Add update parent editedon functionality
+- Some phpdoc annotation update
+
 1.0.2-pl
 ==============
 - Add response directive option
