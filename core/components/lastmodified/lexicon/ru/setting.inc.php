@@ -9,3 +9,5 @@ $_lang['setting_lastmodified.expires'] = 'Expires смещение';
 $_lang['setting_lastmodified.expires_desc'] = 'Устанавливает смещение от текущего времени для Expires заголовка в секундах. По умолчанию 3600.';
 $_lang['setting_lastmodified.update_parent'] = 'Обновление родителя';
 $_lang['setting_lastmodified.update_parent_desc'] = 'Обновляет дату последнего редактирования родительского ресурса для переполучения его контента. По умолчанию false.';
+$_lang['setting_lastmodified.update_level'] = 'Уровень вложенности обновления';
+$_lang['setting_lastmodified.update_level_desc'] = 'Определяет уровень вложенности от текущего ресурса и выше для обновления дат родительских ресурсов. По умолчанию 1.';

@@ -1,5 +1,9 @@
 Changelog for LastModified
 
+1.0.5-pl
+==============
+- Add update nesting level
+
 1.0.4-pl
 ==============
 - Parent 0 bugfix

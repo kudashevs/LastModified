@@ -21,6 +21,11 @@ $tmp = array(
         'value' => false,
         'area' => PKG_NAME_LOWER . '.main',
     ),
+    'update_level' => array(
+        'xtype' => 'textfield',
+        'value' => '1',
+        'area' => PKG_NAME_LOWER . '.main',
+    ),
 );
 
 foreach ($tmp as $k => $v) {
