@@ -1,5 +1,10 @@
 Changelog for LastModified
 
+1.0.4-pl
+==============
+- Parent 0 bugfix
+- Some improvements
+
 1.0.3-pl
 ==============
 - Add update parent editedon functionality

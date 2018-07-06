@@ -51,10 +51,16 @@ if ($modx->event->name == 'OnWebPagePrerender') {
 if ($modx->event->name == 'OnDocFormSave') {
     if ($modx->getOption('lastmodified.update_parent')) {
         $resource = $modx->getObject('modResource', $id);
+        $parentId = $resource->get('parent');
+
+        if ($parentId < 1) {
+            return '';
+        }
+
         $parent = $modx->getObject('modResource', $resource->get('parent'));
 
         if (!$parent instanceof modResource) {
-            $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong parent ' . $parent . ' for document ' . $id. '.');
+            $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong parent object [' . $parent. '] with id ' . $parentId . ' for document ' . $id. '.');
             return '';
         }
 
