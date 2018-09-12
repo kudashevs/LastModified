@@ -3,6 +3,7 @@
  * MODx Revolution plugin which handle request If-Modified-Since
  *
  * @package lastmodified
+ * @var modX $modx MODX instance
  * @var integer $dtm Value of last update time of document
  * @var integer $ltm Value of HTTP_IF_MODIFIED_SINCE from request
  * @var string $rule Cache-control directive (public, private)
@@ -45,10 +46,33 @@ if ($modx->event->name == 'OnWebPagePrerender') {
 /**
  * Update parent editedon field
  *
- * @var modResource $resource Current resource object
+ * @var modX $modx MODX instance
  * @var modResource $parent Parent resource object
  */
 if ($modx->event->name == 'OnDocFormSave') {
+
+    if ($modx->getOption('lastmodified.update_start')) {
+
+        $mainId = $modx->getOption('site_start');
+
+        if ($mainId > 0 && $mainId !== $id) {
+
+            $main = $modx->getObject('modResource', $mainId);
+
+            if (!$main instanceof modResource) {
+                $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong modResource instance for main page with id ' . $mainId . ' for document ' . $id. '.');
+                return '';
+            }
+
+            $main->set('editedon', time());
+            $main->save();
+
+            unset($main);
+        }
+
+        unset($mainId);
+    }
+
     if ($modx->getOption('lastmodified.update_parent')) {
         $level = ((int)$modx->getOption('lastmodified.update_level') > 0) ? (int)$modx->getOption('lastmodified.update_level') : 1;
 
@@ -62,7 +86,7 @@ if ($modx->event->name == 'OnDocFormSave') {
             $parent = $modx->getObject('modResource', $parentId);
 
             if (!$parent instanceof modResource) {
-                $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong parent object [' . $parent. '] with id ' . $parentId . ' for document ' . $id. '.');
+                $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong modResource instance for parent with id ' . $parentId . ' for document ' . $id. '.');
                 return '';
             }
 

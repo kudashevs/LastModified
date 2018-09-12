@@ -26,6 +26,11 @@ $tmp = array(
         'value' => '1',
         'area' => PKG_NAME_LOWER . '.main',
     ),
+    'update_start' => array(
+        'xtype' => 'combo-boolean',
+        'value' => false,
+        'area' => PKG_NAME_LOWER . '.main',
+    ),
 );
 
 foreach ($tmp as $k => $v) {

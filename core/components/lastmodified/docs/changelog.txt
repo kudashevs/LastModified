@@ -1,5 +1,10 @@
 Changelog for LastModified
 
+1.0.6-pl
+==============
+- Add update start page
+- Some improvements
+
 1.0.5-pl
 ==============
 - Add update nesting level
