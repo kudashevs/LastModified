@@ -31,6 +31,11 @@ $tmp = array(
         'value' => false,
         'area' => PKG_NAME_LOWER . '.main',
     ),
+    'prevent_authorized' => array(
+        'xtype' => 'combo-boolean',
+        'value' => true,
+        'area' => PKG_NAME_LOWER . '.main',
+    ),
 );
 
 foreach ($tmp as $k => $v) {

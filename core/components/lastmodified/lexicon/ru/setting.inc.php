@@ -13,3 +13,5 @@ $_lang['setting_lastmodified.update_level'] = 'Уровень вложеннос
 $_lang['setting_lastmodified.update_level_desc'] = 'Определяет уровень вложенности от текущего ресурса и выше для обновления дат родительских ресурсов. По умолчанию 1.';
 $_lang['setting_lastmodified.update_start'] = 'Обновление главной';
 $_lang['setting_lastmodified.update_start_desc'] = 'Обновляет так же даты последнего редактирования для главной страницы. По умолчанию false.';
+$_lang['setting_lastmodified.prevent_authorized'] = 'Не обрабатывать авторизованных';
+$_lang['setting_lastmodified.prevent_authorized_desc'] = 'Предотвращать обработку If-Modified-Since для авторизованных пользователей. По умолчанию true.';

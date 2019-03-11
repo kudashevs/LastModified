@@ -11,7 +11,11 @@
  * @var integer $expire Cache expire in seconds
  */
 if ($modx->event->name == 'OnWebPagePrerender') {
-    $dtm = ($modx->resource->get('editedon')) ? strtotime($modx->resource->get('editedon')) : strtotime($modx->resource->get('createdon'));
+    if ($modx->getOption('lastmodified.prevent_authorized') && ($modx->user->get('username') !== '(anonymous)')) {
+        return '';
+    }
+
+    $dtm = $modx->resource->get('editedon') ? strtotime($modx->resource->get('editedon')) : strtotime($modx->resource->get('createdon'));
     if (empty($dtm)) {
         return '';
     }
@@ -47,6 +51,7 @@ if ($modx->event->name == 'OnWebPagePrerender') {
  * Update parent editedon field
  *
  * @var modX $modx MODX instance
+ * @var int $id The id of document for saving available for OnDooFormSave event
  * @var modResource $parent Parent resource object
  */
 if ($modx->event->name == 'OnDocFormSave') {

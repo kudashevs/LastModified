@@ -14,3 +14,4 @@ After installation use System settings lastmodified namespace to set preferable 
 * update_parent - updates last editing date of parent resource to reacquire its content. Default false.
 * update_level - set nested level from current resource and up for parent resources dates update. Default 1.
 * update_start - update last editing date for start page too on every resource change. Default false.
+* prevent_authorized - prevent If-Modified-Since handling for authorized users. Default true.

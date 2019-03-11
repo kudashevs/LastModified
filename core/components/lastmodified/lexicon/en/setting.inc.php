@@ -13,3 +13,5 @@ $_lang['setting_lastmodified.update_level'] = 'Update nesting level';
 $_lang['setting_lastmodified.update_level_desc'] = 'Set nested level from current resource and up for parent resources dates update. Default 1.';
 $_lang['setting_lastmodified.update_start'] = 'Update start page';
 $_lang['setting_lastmodified.update_start_desc'] = 'Updates last editing date for start page too. Default false.';
+$_lang['setting_lastmodified.prevent_authorized'] = 'Prevent authorized';
+$_lang['setting_lastmodified.prevent_authorized_desc'] = 'Prevents If-Modified-Since handling for authorized users. Default true.';

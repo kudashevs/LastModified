@@ -1,5 +1,10 @@
 Changelog for LastModified
 
+1.0.7-pl
+==============
+- Prevent handling for authorized users
+- Some improvements
+
 1.0.6-pl
 ==============
 - Add update start page
