@@ -1,8 +1,12 @@
 Changelog for LastModified
 
+1.0.8-pl
+==============
+- Add prevent on session variables names
+
 1.0.7-pl
 ==============
-- Prevent handling for authorized users
+- Add prevent handling for authorized users
 - Some improvements
 
 1.0.6-pl

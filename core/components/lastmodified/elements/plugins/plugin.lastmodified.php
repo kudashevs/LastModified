@@ -4,6 +4,7 @@
  *
  * @package lastmodified
  * @var modX $modx MODX instance
+ * @var array $prevent Prevent handling list
  * @var integer $dtm Value of last update time of document
  * @var integer $ltm Value of HTTP_IF_MODIFIED_SINCE from request
  * @var string $rule Cache-control directive (public, private)
@@ -13,6 +14,20 @@
 if ($modx->event->name == 'OnWebPagePrerender') {
     if ($modx->getOption('lastmodified.prevent_authorized') && ($modx->user->get('username') !== '(anonymous)')) {
         return '';
+    }
+
+    if (!empty($modx->getOption('lastmodified.prevent_session'))) {
+        $prevent = array_map(function ($s) {return strtolower(trim($s));}, explode(',', $modx->getOption('lastmodified.prevent_session')));
+        if (empty($prevent)) {
+            $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: incorrect prevent session list. Check configuration.');
+            return '';
+        }
+
+        $sessionkeys = array_map(function ($s) {return strtolower(trim($s));}, array_keys($_SESSION));
+
+        if (array_intersect($prevent, $sessionkeys)) {
+            return '';
+        }
     }
 
     $dtm = $modx->resource->get('editedon') ? strtotime($modx->resource->get('editedon')) : strtotime($modx->resource->get('createdon'));

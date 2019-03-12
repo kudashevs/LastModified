@@ -15,3 +15,5 @@ $_lang['setting_lastmodified.update_start'] = 'Update start page';
 $_lang['setting_lastmodified.update_start_desc'] = 'Updates last editing date for start page too. Default false.';
 $_lang['setting_lastmodified.prevent_authorized'] = 'Prevent authorized';
 $_lang['setting_lastmodified.prevent_authorized_desc'] = 'Prevents If-Modified-Since handling for authorized users. Default true.';
+$_lang['setting_lastmodified.prevent_session'] = 'Prevent in session';
+$_lang['setting_lastmodified.prevent_session_desc'] = 'Prevents If-Modified-Since handling if any of listed values (comma separated) was founded in session variables names. Default minishop2.';

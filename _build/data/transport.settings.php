@@ -36,6 +36,11 @@ $tmp = array(
         'value' => true,
         'area' => PKG_NAME_LOWER . '.main',
     ),
+    'prevent_session' => array(
+        'xtype' => 'textfield',
+        'value' => 'minishop2',
+        'area' => PKG_NAME_LOWER . '.main',
+    ),
 );
 
 foreach ($tmp as $k => $v) {

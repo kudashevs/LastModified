@@ -15,3 +15,4 @@ After installation use System settings lastmodified namespace to set preferable 
 * update_level - set nested level from current resource and up for parent resources dates update. Default 1.
 * update_start - update last editing date for start page too on every resource change. Default false.
 * prevent_authorized - prevent If-Modified-Since handling for authorized users. Default true.
+* prevent_session - prevent If-Modified-Since handling if any of listed values (comma separated) was founded in session variables names. Default minishop2.
