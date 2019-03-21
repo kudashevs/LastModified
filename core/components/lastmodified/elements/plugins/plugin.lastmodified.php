@@ -3,16 +3,17 @@
  * MODx Revolution plugin which handle request If-Modified-Since
  *
  * @package lastmodified
- * @var modX $modx MODX instance
- * @var array $prevent Prevent handling list
- * @var integer $dtm Value of last update time of document
- * @var integer $ltm Value of HTTP_IF_MODIFIED_SINCE from request
- * @var string $rule Cache-control directive (public, private)
- * @var integer $maxage Cache max age in seconds
- * @var integer $expire Cache expire in seconds
+ *
+ * @var modX    $modx       MODX instance
+ * @var array   $prevent    Prevent handling list
+ * @var integer $dtm        Value of last update time of document
+ * @var integer $ltm        Value of HTTP_IF_MODIFIED_SINCE from request
+ * @var string  $rule       Cache-control directive (public, private)
+ * @var integer $maxage     Cache max age in seconds
+ * @var integer $expire     Cache expire in seconds
  */
 if ($modx->event->name == 'OnWebPagePrerender') {
-    if ($modx->getOption('lastmodified.prevent_authorized') && ($modx->user->get('username') !== '(anonymous)')) {
+    if ($modx->getOption('lastmodified.prevent_authorized') && ($modx->user->get('username') !== $modx->getOption('default_username'))) {
         return '';
     }
 
@@ -96,7 +97,12 @@ if ($modx->event->name == 'OnDocFormSave') {
     if ($modx->getOption('lastmodified.update_parent')) {
         $level = ((int)$modx->getOption('lastmodified.update_level') > 0) ? (int)$modx->getOption('lastmodified.update_level') : 1;
 
-        $parentIds = $modx->getParentIds($id, $level, ['context' => 'web']);
+        $parentIds = $modx->getParentIds($id, $level, ['context' => $resource->context_key]);
+
+        if (empty($parentIds)) {
+            $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get empty ParentIds array. Possible context violation.');
+            return '';
+        }
 
         foreach ($parentIds as $parentId) {
             if ($parentId === 0) {

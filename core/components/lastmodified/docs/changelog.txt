@@ -1,5 +1,10 @@
 Changelog for LastModified
 
+1.0.9-pl
+==============
+- Add contexts support
+- Some improvements
+
 1.0.8-pl
 ==============
 - Add prevent on session variables names
