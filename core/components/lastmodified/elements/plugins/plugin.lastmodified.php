@@ -72,6 +72,7 @@ if ($modx->event->name == 'OnWebPagePrerender') {
  * @var int $id             id of saved document (available on OnDocFormSave)
  * @var int $startId        Site start id
  * @var modResource $start  Site start object
+ * @var int $nesting        Nesting level option value
  * @var modResource $parent Parent resource object
  */
 if ($modx->event->name == 'OnDocFormSave') {
@@ -99,9 +100,9 @@ if ($modx->event->name == 'OnDocFormSave') {
     }
 
     if ($modx->getOption('lastmodified.update_parent')) {
-        $level = ((int)$modx->getOption('lastmodified.update_level') > 0) ? (int)$modx->getOption('lastmodified.update_level') : 1;
+        $nesting = (($level = (int)$modx->getOption('lastmodified.update_level')) > 0) ? $level : 1;
 
-        $parentIds = $modx->getParentIds($id, $level, ['context' => $resource->context_key]);
+        $parentIds = $modx->getParentIds($id, $nesting, ['context' => $resource->context_key]);
 
         if (empty($parentIds)) {
             $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get empty ParentIds array. Possible context violation.');
