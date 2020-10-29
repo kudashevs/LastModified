@@ -68,32 +68,34 @@ if ($modx->event->name == 'OnWebPagePrerender') {
 /**
  * Update parent editedon field
  *
- * @var modX $modx MODX instance
- * @var int $id The id of document for saving available for OnDooFormSave event
+ * @var modX $modx          MODX instance
+ * @var int $id             id of saved document (available on OnDocFormSave)
+ * @var int $startId        Site start id
+ * @var modResource $start  Site start object
  * @var modResource $parent Parent resource object
  */
 if ($modx->event->name == 'OnDocFormSave') {
 
     if ($modx->getOption('lastmodified.update_start')) {
 
-        $mainId = $modx->getOption('site_start');
+        $startId = $modx->getOption('site_start');
 
-        if ($mainId > 0 && $mainId !== $id) {
+        if ($startId > 0 && $startId !== $id) {
 
-            $main = $modx->getObject('modResource', $mainId);
+            $start = $modx->getObject('modResource', $startId);
 
-            if (!$main instanceof modResource) {
-                $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong modResource instance for main page with id ' . $mainId . ' for document ' . $id. '.');
+            if (!$start instanceof modResource) {
+                $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong modResource instance for site start with id ' . $startId . ' for document ' . $id. '.');
                 return '';
             }
 
-            $main->set('editedon', time());
-            $main->save();
+            $start->set('editedon', time());
+            $start->save();
 
-            unset($main);
+            unset($start);
         }
 
-        unset($mainId);
+        unset($startId);
     }
 
     if ($modx->getOption('lastmodified.update_parent')) {
