@@ -4,13 +4,13 @@
  *
  * @package lastmodified
  *
- * @var modX    $modx           MODX instance
- * @var array   $sessionPrevent Prevent handling list
- * @var integer $dtm            Value of last update time of document
- * @var integer $ltm            Value of HTTP_IF_MODIFIED_SINCE from request
- * @var string  $cacheResponse           Cache-control directive (public, private)
- * @var integer $cacheMaxAge         Cache max age in seconds
- * @var integer $cacheExpires         Cache expire in seconds
+ * @var modX    $modx               MODX instance
+ * @var array   $sessionPrevent     Prevent handling list
+ * @var integer $lastUpdateTime     Document last update time
+ * @var integer $lastDownloadTime   Document last download time (HTTP_IF_MODIFIED_SINCE)
+ * @var string  $cacheControl       Cache-control directive (public, private)
+ * @var integer $cacheMaxAge        Cache max age in seconds
+ * @var integer $cacheExpires       Cache expires in seconds
  */
 if ($modx->event->name == 'OnWebPagePrerender') {
     if ($modx->getOption('lastmodified.prevent_authorized') && ($modx->user->get('username') !== $modx->getOption('default_username'))) {
@@ -32,34 +32,35 @@ if ($modx->event->name == 'OnWebPagePrerender') {
         }
     }
 
-    $dtm = $modx->resource->get('editedon') ? strtotime($modx->resource->get('editedon')) : strtotime($modx->resource->get('createdon'));
-    if (empty($dtm)) {
+    $lastUpdateTime = $modx->resource->get('editedon') ? strtotime($modx->resource->get('editedon')) : strtotime($modx->resource->get('createdon'));
+
+    if (empty($lastUpdateTime)) {
         return '';
     }
 
-    $cacheResponse = trim($modx->getOption('lastmodified.response'));
+    $cacheControl = trim($modx->getOption('lastmodified.response'));
 
-    if (!in_array($cacheResponse, ['private', 'public'])) { // 'no-cache'
-        $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: wrong ' . $cacheResponse . ' response value. Check configuration.');
+    if (!in_array($cacheControl, ['private', 'public'])) { // 'no-cache'
+        $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: wrong ' . $cacheControl . ' response value. Check configuration.');
         return '';
     }
 
     $cacheMaxAge = ((int)$modx->getOption('lastmodified.maxage') > 0) ? (int)$modx->getOption('lastmodified.maxage') : 3600;
     $cacheExpires = ((int)$modx->getOption('lastmodified.expires') > 0) ? (int)$modx->getOption('lastmodified.expires') : 3600;
 
-    if (!empty($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-        $ltm = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
-        if ($dtm <= $ltm) {
+    if (!empty($_SERVER['HTTP_IF_MODIFIED_SINCE'])) { // browser has sent If-Modified-Since request header
+        $lastDownloadTime = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
+        if ($lastUpdateTime <= $lastDownloadTime) {
             $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
             header($protocol . ' 304 Not Modified');
-            header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $dtm) . ' GMT');
-            header('Cache-control: ' . $cacheResponse . ', max-age=' . $cacheMaxAge);
+            header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $lastUpdateTime) . ' GMT');
+            header('Cache-control: ' . $cacheControl . ', max-age=' . $cacheMaxAge);
             header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $cacheExpires));
             exit();
         }
     }
-    header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $dtm) . ' GMT');
-    header('Cache-control: ' . $cacheResponse . ', max-age=' . $cacheMaxAge);
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $lastUpdateTime) . ' GMT');
+    header('Cache-control: ' . $cacheControl . ', max-age=' . $cacheMaxAge);
     header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $cacheExpires));
     return '';
 }
