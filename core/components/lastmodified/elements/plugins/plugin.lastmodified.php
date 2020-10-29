@@ -73,6 +73,7 @@ if ($modx->event->name == 'OnWebPagePrerender') {
  * @var int $startId        Site start id
  * @var modResource $start  Site start object
  * @var int $nesting        Nesting level option value
+ * @var array $parentIds    current page parents
  * @var modResource $parent Parent resource object
  */
 if ($modx->event->name == 'OnDocFormSave') {
@@ -111,7 +112,7 @@ if ($modx->event->name == 'OnDocFormSave') {
 
         foreach ($parentIds as $parentId) {
             if ($parentId === 0) {
-                continue;
+                break;
             }
 
             $parent = $modx->getObject('modResource', $parentId);
@@ -126,6 +127,8 @@ if ($modx->event->name == 'OnDocFormSave') {
 
             unset($parent);
         }
+
+        unset($parentIds);
 
         return '';
     }
