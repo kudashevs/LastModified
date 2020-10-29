@@ -8,9 +8,9 @@
  * @var array   $sessionPrevent Prevent handling list
  * @var integer $dtm            Value of last update time of document
  * @var integer $ltm            Value of HTTP_IF_MODIFIED_SINCE from request
- * @var string  $rule           Cache-control directive (public, private)
- * @var integer $maxage         Cache max age in seconds
- * @var integer $expire         Cache expire in seconds
+ * @var string  $cacheResponse           Cache-control directive (public, private)
+ * @var integer $cacheMaxAge         Cache max age in seconds
+ * @var integer $cacheExpires         Cache expire in seconds
  */
 if ($modx->event->name == 'OnWebPagePrerender') {
     if ($modx->getOption('lastmodified.prevent_authorized') && ($modx->user->get('username') !== $modx->getOption('default_username'))) {
@@ -37,15 +37,15 @@ if ($modx->event->name == 'OnWebPagePrerender') {
         return '';
     }
 
-    $rule = trim($modx->getOption('lastmodified.response'));
+    $cacheResponse = trim($modx->getOption('lastmodified.response'));
 
-    if (!in_array($rule, ['private', 'public'])) { // 'no-cache'
-        $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: wrong response directive value. Check configuration.');
+    if (!in_array($cacheResponse, ['private', 'public'])) { // 'no-cache'
+        $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: wrong ' . $cacheResponse . ' response value. Check configuration.');
         return '';
     }
 
-    $maxage = ((int)$modx->getOption('lastmodified.maxage') > 0) ? (int)$modx->getOption('lastmodified.maxage') : 3600;
-    $expire = ((int)$modx->getOption('lastmodified.expires') > 0) ? (int)$modx->getOption('lastmodified.expires') : 3600;
+    $cacheMaxAge = ((int)$modx->getOption('lastmodified.maxage') > 0) ? (int)$modx->getOption('lastmodified.maxage') : 3600;
+    $cacheExpires = ((int)$modx->getOption('lastmodified.expires') > 0) ? (int)$modx->getOption('lastmodified.expires') : 3600;
 
     if (!empty($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
         $ltm = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
@@ -53,14 +53,14 @@ if ($modx->event->name == 'OnWebPagePrerender') {
             $protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
             header($protocol . ' 304 Not Modified');
             header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $dtm) . ' GMT');
-            header('Cache-control: ' . $rule . ', max-age=' . $maxage);
-            header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expire));
+            header('Cache-control: ' . $cacheResponse . ', max-age=' . $cacheMaxAge);
+            header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $cacheExpires));
             exit();
         }
     }
     header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $dtm) . ' GMT');
-    header('Cache-control: ' . $rule . ', max-age=' . $maxage);
-    header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expire));
+    header('Cache-control: ' . $cacheResponse . ', max-age=' . $cacheMaxAge);
+    header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $cacheExpires));
     return '';
 }
 
