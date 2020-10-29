@@ -92,6 +92,7 @@ if ($modx->event->name == 'OnDocFormSave') {
             }
 
             $start->set('editedon', time());
+            $start->clearCache($resource->context_key);
             $start->save();
 
             unset($start);
@@ -123,6 +124,7 @@ if ($modx->event->name == 'OnDocFormSave') {
             }
 
             $parent->set('editedon', time());
+            $parent->clearCache($resource->context_key);
             $parent->save();
 
             unset($parent);
