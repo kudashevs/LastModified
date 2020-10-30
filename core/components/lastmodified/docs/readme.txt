@@ -1,7 +1,7 @@
 --------------------
 LastModified
 --------------------
-Author: Kudashev Serge <kudashevs@gmail.com>
+Author: Kudashev Sergey <kudashevs@gmail.com>
 --------------------
 
 This MODx Revolution plugin handle request If-Modified-Since and return Last-Modified header

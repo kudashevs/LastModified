@@ -1,5 +1,11 @@
 Changelog for LastModified
 
+1.0.10-pl
+==============
+- Add clear cache for all updated documents on OnDocFormSave
+- Massive refactoring
+- Update .gitignore
+
 1.0.9-pl
 ==============
 - Add contexts support
