@@ -30,9 +30,11 @@ if ($modx->event->name == 'OnWebPagePrerender') {
             return '';
         }
 
-        $sessionKeys = array_map(function ($pattern) {return strtolower(trim($pattern));}, array_keys($_SESSION));
+        $sessionKeys = array_map(function ($value) {
+            return strtolower(trim($value));
+        }, array_keys($_SESSION));
 
-        if (array_intersect($preventFromSession, $sessionKeys)) {
+        if ((bool)array_intersect($preventValues, $sessionKeys)) {
             return '';
         }
     }
