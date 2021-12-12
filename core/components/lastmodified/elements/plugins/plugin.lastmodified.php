@@ -4,13 +4,13 @@
  *
  * @package lastmodified
  *
- * @var modX    $modx                   MODX instance
- * @var array   $preventFromSession     Prevent handling list
- * @var integer $lastUpdateTime         Document last update time
- * @var integer $lastDownloadTime       Document last download time (HTTP_IF_MODIFIED_SINCE)
- * @var string  $cacheControl           Cache-control directive (public, private)
- * @var integer $cacheMaxAge            Cache max age in seconds
- * @var integer $cacheExpires           Cache expires in seconds
+ * @var modX $modx MODX instance
+ * @var array $preventFromSession Prevent handling list
+ * @var integer $lastUpdateTime Document last update time
+ * @var integer $lastDownloadTime Document last download time (HTTP_IF_MODIFIED_SINCE)
+ * @var string $cacheControl Cache-control directive (public, private)
+ * @var integer $cacheMaxAge Cache max age in seconds
+ * @var integer $cacheExpires Cache expires in seconds
  */
 if ($modx->event->name == 'OnWebPagePrerender') {
     if ($modx->getOption('lastmodified.prevent_authorized') && ($modx->user->get('username') !== $modx->getOption('default_username'))) {
@@ -42,6 +42,7 @@ if ($modx->event->name == 'OnWebPagePrerender') {
 
     if (!in_array($cacheControl, ['private', 'public'])) { // 'no-cache'
         $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: wrong ' . $cacheControl . ' response value. Check configuration.');
+
         return '';
     }
 
@@ -62,18 +63,19 @@ if ($modx->event->name == 'OnWebPagePrerender') {
     header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $lastUpdateTime) . ' GMT');
     header('Cache-control: ' . $cacheControl . ', max-age=' . $cacheMaxAge);
     header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $cacheExpires));
+
     return '';
 }
 
 /**
  * Update parent editedon field
  *
- * @var modX $modx          MODX instance
- * @var int $id             id of saved document (available on OnDocFormSave)
- * @var int $startId        Site start id
- * @var modResource $start  Site start object
- * @var int $nesting        Nesting level option value
- * @var array $parentIds    current page parents
+ * @var modX $modx MODX instance
+ * @var int $id id of saved document (available on OnDocFormSave)
+ * @var int $startId Site start id
+ * @var modResource $start Site start object
+ * @var int $nesting Nesting level option value
+ * @var array $parentIds current page parents
  * @var modResource $parent Parent resource object
  */
 if ($modx->event->name == 'OnDocFormSave') {
@@ -87,7 +89,8 @@ if ($modx->event->name == 'OnDocFormSave') {
             $start = $modx->getObject('modResource', $startId);
 
             if (!$start instanceof modResource) {
-                $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong modResource instance for site start with id ' . $startId . ' for document ' . $id. '.');
+                $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong modResource instance for site start with id ' . $startId . ' for document ' . $id . '.');
+
                 return '';
             }
 
