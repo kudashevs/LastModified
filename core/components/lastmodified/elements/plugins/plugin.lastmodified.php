@@ -18,10 +18,11 @@ if ($modx->event->name == 'OnWebPagePrerender') {
     }
 
     if (!empty($modx->getOption('lastmodified.prevent_session'))) {
-        $preventFromSession = array_map(function ($pattern) {return strtolower(trim($pattern));}, explode(',', $modx->getOption('lastmodified.prevent_session')));
+        $preventOptionValues = explode(',', $modx->getOption('lastmodified.prevent_session'));
 
-        if (empty($preventFromSession)) {
-            $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: incorrect prevent session list. Check configuration.');
+        if (count($preventOptionValues) !== count(array_filter($preventOptionValues))) {
+            $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: one of the prevent_session values is empty. Please, check your configuration.');
+
             return '';
         }
 
