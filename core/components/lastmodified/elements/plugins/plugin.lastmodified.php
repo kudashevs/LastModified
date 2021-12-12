@@ -5,7 +5,7 @@
  * @package lastmodified
  *
  * @var modX $modx MODX instance
- * @var array $preventFromSession Prevent handling list
+ * @var array $preventValues Prevent handling list
  * @var integer $lastUpdateTime Document last update time
  * @var integer $lastDownloadTime Document last download time (HTTP_IF_MODIFIED_SINCE)
  * @var string $cacheControl Cache-control directive (public, private)
@@ -20,7 +20,11 @@ if ($modx->event->name == 'OnWebPagePrerender') {
     if (!empty($modx->getOption('lastmodified.prevent_session'))) {
         $preventOptionValues = explode(',', $modx->getOption('lastmodified.prevent_session'));
 
-        if (count($preventOptionValues) !== count(array_filter($preventOptionValues))) {
+        $preventValues = array_map(function ($value) {
+            return strtolower(trim($value));
+        }, $preventOptionValues);
+
+        if (count($preventValues) !== count(array_filter($preventValues))) {
             $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: one of the prevent_session values is empty. Please, check your configuration.');
 
             return '';
