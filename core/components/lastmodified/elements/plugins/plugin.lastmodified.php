@@ -4,13 +4,13 @@
  *
  * @package lastmodified
  *
- * @var modX    $modx               MODX instance
- * @var array   $sessionPrevent     Prevent handling list
- * @var integer $lastUpdateTime     Document last update time
- * @var integer $lastDownloadTime   Document last download time (HTTP_IF_MODIFIED_SINCE)
- * @var string  $cacheControl       Cache-control directive (public, private)
- * @var integer $cacheMaxAge        Cache max age in seconds
- * @var integer $cacheExpires       Cache expires in seconds
+ * @var modX    $modx                   MODX instance
+ * @var array   $preventFromSession     Prevent handling list
+ * @var integer $lastUpdateTime         Document last update time
+ * @var integer $lastDownloadTime       Document last download time (HTTP_IF_MODIFIED_SINCE)
+ * @var string  $cacheControl           Cache-control directive (public, private)
+ * @var integer $cacheMaxAge            Cache max age in seconds
+ * @var integer $cacheExpires           Cache expires in seconds
  */
 if ($modx->event->name == 'OnWebPagePrerender') {
     if ($modx->getOption('lastmodified.prevent_authorized') && ($modx->user->get('username') !== $modx->getOption('default_username'))) {
@@ -18,16 +18,16 @@ if ($modx->event->name == 'OnWebPagePrerender') {
     }
 
     if (!empty($modx->getOption('lastmodified.prevent_session'))) {
-        $sessionPrevent = array_map(function ($pattern) {return strtolower(trim($pattern));}, explode(',', $modx->getOption('lastmodified.prevent_session')));
+        $preventFromSession = array_map(function ($pattern) {return strtolower(trim($pattern));}, explode(',', $modx->getOption('lastmodified.prevent_session')));
 
-        if (empty($sessionPrevent)) {
+        if (empty($preventFromSession)) {
             $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: incorrect prevent session list. Check configuration.');
             return '';
         }
 
         $sessionKeys = array_map(function ($pattern) {return strtolower(trim($pattern));}, array_keys($_SESSION));
 
-        if (array_intersect($sessionPrevent, $sessionKeys)) {
+        if (array_intersect($preventFromSession, $sessionKeys)) {
             return '';
         }
     }
