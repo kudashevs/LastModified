@@ -6,7 +6,7 @@ Changelog for LastModified
 - Refactor plugin code and logic
 - Update README information and settings
 - Update code style
-- Some improvement.
+- Some improvements
 
 1.0.10-pl
 ==============
