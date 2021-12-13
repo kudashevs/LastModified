@@ -1,5 +1,13 @@
 Changelog for LastModified
 
+1.1.0-pl - 2021-12-14
+=====================
+- Add exclude by id setting
+- Refactor plugin code and logic
+- Update README information and settings
+- Update code style
+- Some improvement.
+
 1.0.10-pl
 ==============
 - Add clear cache for all updated documents on OnDocFormSave
