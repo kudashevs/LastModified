@@ -16,3 +16,4 @@ To set up this plugin please go to the System settings after an installation and
 * update_start - updates the last editing date of the start page on a resource change. Default false.
 * prevent_authorized - prevents If-Modified-Since header handling for authorized users. Default true.
 * prevent_session - prevents If-Modified-Since header handling when any of the values (comma-separated list) occur in session names. Default minishop2.
+* exclude - prevents If-Modified-Since header handling for any of listed document ids (comma-separated list). Empty by default.
