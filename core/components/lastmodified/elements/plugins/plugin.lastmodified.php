@@ -17,6 +17,24 @@ if ($modx->event->name == 'OnWebPagePrerender') {
         return '';
     }
 
+    if (!empty($modx->getOption('lastmodified.exclude'))) {
+        $excludeOptionValues = explode(',', $modx->getOption('lastmodified.exclude'));
+
+        $excludeIds = array_map(function ($value) {
+            return strtolower(trim($value));
+        }, $excludeOptionValues);
+
+        if (count($excludeIds) !== count(array_filter($excludeIds))) {
+            $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: one of the exclude values is empty. Please, check your configuration.');
+
+            return '';
+        }
+
+        if (in_array($modx->resource->id, $excludeIds, false)) {
+            return '';
+        }
+    }
+
     if (!empty($modx->getOption('lastmodified.prevent_session'))) {
         $preventOptionValues = explode(',', $modx->getOption('lastmodified.prevent_session'));
 
