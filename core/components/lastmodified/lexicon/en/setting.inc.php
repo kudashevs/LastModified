@@ -17,3 +17,5 @@ $_lang['setting_lastmodified.prevent_authorized'] = 'Prevent authorized';
 $_lang['setting_lastmodified.prevent_authorized_desc'] = 'Prevents If-Modified-Since header handling for authorized users. Default true.';
 $_lang['setting_lastmodified.prevent_session'] = 'Prevent in session';
 $_lang['setting_lastmodified.prevent_session_desc'] = 'Prevents If-Modified-Since header handling when any of the values (comma-separated list) occur in session names. Default minishop2';
+$_lang['setting_lastmodified.exclude'] = 'Exclude from processing by id';
+$_lang['setting_lastmodified.exclude_desc'] = 'Prevents If-Modified-Since header handling for any of listed document ids (comma-separated list). Empty by default';

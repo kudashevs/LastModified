@@ -17,3 +17,5 @@ $_lang['setting_lastmodified.prevent_authorized'] = 'Не обрабатыват
 $_lang['setting_lastmodified.prevent_authorized_desc'] = 'Останавливает обработку If-Modified-Since для авторизованных пользователей. По умолчанию true.';
 $_lang['setting_lastmodified.prevent_session'] = 'Не обрабатывать если в сессии';
 $_lang['setting_lastmodified.prevent_session_desc'] = 'Останавливает обработку If-Modified-Since если любое из перечисленных значений (через запятую) найдено в именах переменных сессии. По умолчанию minishop2.';
+$_lang['setting_lastmodified.exclude'] = 'Исключить из обработки по id';
+$_lang['setting_lastmodified.exclude_desc'] = 'Остнавливает обработку If-Modified-Since для любого из перечисленных id (через запятую) документов. По умолчанию не установлено.';
