@@ -18,7 +18,7 @@ if (file_exists('build.model.php')) {
 
 /* define sources */
 $root = dirname(dirname(__FILE__)) . '/';
-$sources = array(
+$sources = [
     'root' => $root,
     'build' => $root . '_build/',
     'data' => $root . '_build/data/',
@@ -28,7 +28,7 @@ $sources = array(
     //'lexicon' => $root . 'core/components/' . PKG_NAME_LOWER . '/lexicon/',
     //'source_assets' => $root . 'assets/components/' . PKG_NAME_LOWER,
     'source_core' => $root . 'core/components/' . PKG_NAME_LOWER,
-);
+];
 unset($root);
 
 /* override with your own MODx instance */
@@ -54,11 +54,11 @@ if (defined('BUILD_SETTING_UPDATE')) {
     if (!is_array($settings)) {
         $modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in settings.');
     } else {
-        $attributes = array(
+        $attributes = [
             xPDOTransport::UNIQUE_KEY => 'key',
             xPDOTransport::PRESERVE_KEYS => true,
             xPDOTransport::UPDATE_OBJECT => BUILD_SETTING_UPDATE,
-        );
+        ];
         foreach ($settings as $setting) {
             $vehicle = $builder->createVehicle($setting, $attributes);
             $builder->putVehicle($vehicle);
@@ -73,25 +73,25 @@ $category = $modx->newObject('modCategory');
 $category->set('category', PKG_NAME);
 
 /* create category vehicle */
-$attr = array(
+$attr = [
     xPDOTransport::UNIQUE_KEY => 'category',
     xPDOTransport::PRESERVE_KEYS => false,
     xPDOTransport::UPDATE_OBJECT => true,
     xPDOTransport::RELATED_OBJECTS => true,
-);
+];
 
 /* add plugins */
 if (defined('BUILD_PLUGIN_UPDATE')) {
-    $attr[xPDOTransport::RELATED_OBJECT_ATTRIBUTES]['Plugins'] = array(
+    $attr[xPDOTransport::RELATED_OBJECT_ATTRIBUTES]['Plugins'] = [
         xPDOTransport::PRESERVE_KEYS => false,
         xPDOTransport::UPDATE_OBJECT => BUILD_PLUGIN_UPDATE,
         xPDOTransport::UNIQUE_KEY => 'name',
-    );
-    $attr[xPDOTransport::RELATED_OBJECT_ATTRIBUTES]['PluginEvents'] = array(
+    ];
+    $attr[xPDOTransport::RELATED_OBJECT_ATTRIBUTES]['PluginEvents'] = [
         xPDOTransport::PRESERVE_KEYS => true,
         xPDOTransport::UPDATE_OBJECT => BUILD_PLUGIN_UPDATE,
-        xPDOTransport::UNIQUE_KEY => array('pluginid', 'event'),
-    );
+        xPDOTransport::UNIQUE_KEY => ['pluginid', 'event'],
+    ];
     $plugins = include $sources['data'] . 'transport.plugins.php';
     if (!is_array($plugins)) {
         $modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in plugins.');
@@ -104,13 +104,13 @@ if (defined('BUILD_PLUGIN_UPDATE')) {
 $vehicle = $builder->createVehicle($category, $attr);
 
 /* now pack in resolvers */
-$vehicle->resolve('file', array(
+$vehicle->resolve('file', [
     'source' => $sources['source_core'],
     'target' => "return MODX_CORE_PATH . 'components/';",
-));
+]);
 
 foreach ($BUILD_RESOLVERS as $resolver) {
-    if ($vehicle->resolve('php', array('source' => $sources['resolvers'] . 'resolve.' . $resolver . '.php'))) {
+    if ($vehicle->resolve('php', ['source' => $sources['resolvers'] . 'resolve.' . $resolver . '.php'])) {
         $modx->log(modX::LOG_LEVEL_INFO, 'Added resolver "' . $resolver . '" to category.');
     } else {
         $modx->log(modX::LOG_LEVEL_INFO, 'Could not add resolver "' . $resolver . '" to category.');
@@ -121,11 +121,11 @@ flush();
 $builder->putVehicle($vehicle);
 
 /* now pack in the license file, readme and setup options */
-$builder->setPackageAttributes(array(
+$builder->setPackageAttributes([
     'changelog' => file_get_contents($sources['docs'] . 'changelog.txt'),
     'license' => file_get_contents($sources['docs'] . 'license.txt'),
     'readme' => file_get_contents($sources['docs'] . 'readme.txt'),
-));
+]);
 $modx->log(modX::LOG_LEVEL_INFO, 'Added package attributes and setup options.');
 
 /* zip up package */
@@ -145,10 +145,10 @@ if (defined('PKG_AUTO_INSTALL') && PKG_AUTO_INSTALL) {
     $versionSignature = explode('.', $sig[1]);
 
     /* @var modTransportPackage $package */
-    if (!$package = $modx->getObject('transport.modTransportPackage', array('signature' => $signature))) {
+    if (!$package = $modx->getObject('transport.modTransportPackage', ['signature' => $signature])) {
         $package = $modx->newObject('transport.modTransportPackage');
         $package->set('signature', $signature);
-        $package->fromArray(array(
+        $package->fromArray([
             'created' => date('Y-m-d h:i:s'),
             'updated' => null,
             'state' => 1,
@@ -159,7 +159,7 @@ if (defined('PKG_AUTO_INSTALL') && PKG_AUTO_INSTALL) {
             'version_major' => $versionSignature[0],
             'version_minor' => !empty($versionSignature[1]) ? $versionSignature[1] : 0,
             'version_patch' => !empty($versionSignature[2]) ? $versionSignature[2] : 0,
-        ));
+        ]);
         if (!empty($sig[2])) {
             $r = preg_split('/([0-9]+)/', $sig[2], -1, PREG_SPLIT_DELIM_CAPTURE);
             if (is_array($r) && !empty($r)) {
