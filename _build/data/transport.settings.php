@@ -1,47 +1,49 @@
 <?php
-$settings = array();
-$tmp = array(
-    'response' => array(
+
+$settings = [];
+
+$tmp = [
+    'response' => [
         'xtype' => 'textfield',
         'value' => 'private',
         'area' => PKG_NAME_LOWER . '.main',
-    ),
-    'maxage' => array(
+    ],
+    'maxage' => [
         'xtype' => 'textfield',
         'value' => '3600',
         'area' => PKG_NAME_LOWER . '.main',
-    ),
-    'expires' => array(
+    ],
+    'expires' => [
         'xtype' => 'textfield',
         'value' => '3600',
         'area' => PKG_NAME_LOWER . '.main',
-    ),
-    'update_parent' => array(
+    ],
+    'update_parent' => [
         'xtype' => 'combo-boolean',
         'value' => false,
         'area' => PKG_NAME_LOWER . '.main',
-    ),
-    'update_level' => array(
+    ],
+    'update_level' => [
         'xtype' => 'textfield',
         'value' => '1',
         'area' => PKG_NAME_LOWER . '.main',
-    ),
-    'update_start' => array(
+    ],
+    'update_start' => [
         'xtype' => 'combo-boolean',
         'value' => false,
         'area' => PKG_NAME_LOWER . '.main',
-    ),
-    'prevent_authorized' => array(
+    ],
+   'prevent_authorized' => [
         'xtype' => 'combo-boolean',
         'value' => true,
         'area' => PKG_NAME_LOWER . '.main',
-    ),
-    'prevent_session' => array(
+   ],
+    'prevent_session' => [
         'xtype' => 'textfield',
         'value' => 'minishop2',
         'area' => PKG_NAME_LOWER . '.main',
-    ),
-);
+    ],
+];
 
 foreach ($tmp as $k => $v) {
     /* @var modSystemSetting $setting */
