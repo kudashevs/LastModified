@@ -1,7 +1,7 @@
 ## LastModified
 
-A MODx Revolution plugin handles the If-Modified-Since request header and returns the Last-Modified response header
-with the response code 304 when it is necessary (more info and site check on https://last-modified.com/en/)
+A MODx Revolution plugin which handles the If-Modified-Since request header and returns the Last-Modified response
+header with the 304 response code when it is necessary (more info and site check on https://last-modified.com/en/)
 
 To set up this plugin please go to the System settings after an installation and pick `lastmodified` namespace.
 
