@@ -3,7 +3,7 @@
 A MODx Revolution plugin which handles the If-Modified-Since request header and returns the Last-Modified response
 header with the 304 response code when it is necessary (more info and site check on https://last-modified.com/en/)
 
-To set up this plugin please go to the System settings after an installation and pick `lastmodified` namespace.
+After the installation process, please visit `System Settings`, choose a `lastmodified` namespace, and set the desired settings.
 
 
 ### Available system settings (namespace lastmodified):
