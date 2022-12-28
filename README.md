@@ -5,10 +5,9 @@ header with the 304 response code when it is necessary (more info and site check
 
 After the installation process, please visit `System Settings`, choose a `lastmodified` namespace, and set the desired settings.
 
+### Available system settings (namespace `lastmodified`):
 
-### Available system settings (namespace lastmodified):
-
-* response -  specifies a value of the Cache-control response directive, available options: "private", "public".
+* response - specifies a value of the Cache-control response directive, available options: "private", "public".
 * maxage – specifies a value of the Cache-control max-age directive in seconds, default is 3600.
 * expires – specifies a value of the Expires header as an offset from the current time in seconds, default is 3600.
 * update_parent - updates the last editing date of the parent resource to show that it has been updated too. Default false.
