@@ -45,7 +45,9 @@ if ($modx->event->name == 'OnWebPagePrerender') {
         }
     }
 
-    $lastUpdateTime = $modx->resource->get('editedon') ? strtotime($modx->resource->get('editedon')) : strtotime($modx->resource->get('createdon'));
+    $lastUpdateTime = $modx->resource->get('editedon')
+        ? strtotime($modx->resource->get('editedon'))
+        : strtotime($modx->resource->get('createdon'));
 
     if (empty($lastUpdateTime)) {
         return '';
