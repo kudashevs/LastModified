@@ -21,7 +21,7 @@ if ($modx->event->name == 'OnWebPagePrerender') {
         $excludeOptionValues = explode(',', $modx->getOption('lastmodified.exclude'));
 
         $excludeIds = array_map(function ($value) {
-            return strtolower(trim($value));
+            return (int)$value;
         }, $excludeOptionValues);
 
         if (in_array($modx->resource->id, $excludeIds, false)) {
