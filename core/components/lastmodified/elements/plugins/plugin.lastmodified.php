@@ -24,11 +24,6 @@ if ($modx->event->name == 'OnWebPagePrerender') {
             return strtolower(trim($value));
         }, $excludeOptionValues);
 
-        if (count($excludeIds) !== count(array_filter($excludeIds))) {
-            $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: one of the exclude values is empty. Please, check your configuration.');
-            return '';
-        }
-
         if (in_array($modx->resource->id, $excludeIds, false)) {
             return '';
         }
