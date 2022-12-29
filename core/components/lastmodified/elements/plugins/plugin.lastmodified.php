@@ -1,8 +1,6 @@
 <?php
 /**
- * MODx Revolution plugin which handle request If-Modified-Since
- *
- * @package lastmodified
+ * A part of LastModified plugin which handles the If-Modified-Since request header.
  *
  * @var modX $modx MODX instance
  * @var array $preventValues Prevent handling list
@@ -82,7 +80,7 @@ if ($modx->event->name == 'OnWebPagePrerender') {
 }
 
 /**
- * Update parent editedon field
+ * A part of LastModified plugin which updates the editedon field of dependent resources.
  *
  * @var modX $modx MODX instance
  * @var int $id id of saved document (available on OnDocFormSave)
