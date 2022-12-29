@@ -96,7 +96,7 @@ if ($modx->event->name == 'OnDocFormSave') {
 
     if ($modx->getOption('lastmodified.update_start')) {
 
-        $startId = $modx->getOption('site_start');
+        $startId = (int)$modx->getOption('site_start');
 
         if ($startId > 0 && $startId !== $id) {
 
