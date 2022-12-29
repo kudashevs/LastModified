@@ -26,7 +26,6 @@ if ($modx->event->name == 'OnWebPagePrerender') {
 
         if (count($excludeIds) !== count(array_filter($excludeIds))) {
             $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: one of the exclude values is empty. Please, check your configuration.');
-
             return '';
         }
 
@@ -44,7 +43,6 @@ if ($modx->event->name == 'OnWebPagePrerender') {
 
         if (count($preventValues) !== count(array_filter($preventValues))) {
             $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: one of the prevent_session values is empty. Please, check your configuration.');
-
             return '';
         }
 
@@ -67,7 +65,6 @@ if ($modx->event->name == 'OnWebPagePrerender') {
 
     if (!in_array($cacheControl, ['private', 'public'])) { // 'no-cache'
         $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: wrong ' . $cacheControl . ' response value. Check configuration.');
-
         return '';
     }
 
@@ -115,7 +112,6 @@ if ($modx->event->name == 'OnDocFormSave') {
 
             if (!$start instanceof modResource) {
                 $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong modResource instance for site start with id ' . $startId . ' for document ' . $id . '.');
-
                 return '';
             }
 
@@ -147,7 +143,7 @@ if ($modx->event->name == 'OnDocFormSave') {
             $parent = $modx->getObject('modResource', $parentId);
 
             if (!$parent instanceof modResource) {
-                $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong modResource instance for parent with id ' . $parentId . ' for document ' . $id. '.');
+                $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: get wrong modResource instance for parent with id ' . $parentId . ' for document ' . $id . '.');
                 return '';
             }
 
