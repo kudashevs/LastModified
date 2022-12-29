@@ -40,7 +40,7 @@ if ($modx->event->name == 'OnWebPagePrerender') {
             return strtolower(trim($value));
         }, array_keys($_SESSION));
 
-        if ((bool)array_intersect($preventValues, $sessionKeys)) {
+        if (count(array_intersect($preventValues, $sessionKeys)) > 0) {
             return '';
         }
     }
