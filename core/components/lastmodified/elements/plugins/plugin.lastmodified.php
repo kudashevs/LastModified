@@ -36,11 +36,6 @@ if ($modx->event->name == 'OnWebPagePrerender') {
             return strtolower(trim($value));
         }, $preventOptionValues);
 
-        if (count($preventValues) !== count(array_filter($preventValues))) {
-            $modx->log(xPDO::LOG_LEVEL_ERROR, 'LastModified: one of the prevent_session values is empty. Please, check your configuration.');
-            return '';
-        }
-
         $sessionKeys = array_map(function ($value) {
             return strtolower(trim($value));
         }, array_keys($_SESSION));
