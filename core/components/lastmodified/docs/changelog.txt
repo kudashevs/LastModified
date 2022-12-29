@@ -1,5 +1,12 @@
 Changelog for LastModified
 
+=======
+1.1.1-pl - 2022-12-29
+=====================
+- Remove some redundant empty value checks
+- Update README file
+- Some improvements
+
 1.1.0-pl - 2021-12-14
 =====================
 - Add exclude by id setting
