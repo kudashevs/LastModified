@@ -16,3 +16,6 @@ After the installation process, please visit `System Settings`, choose a `lastmo
 * prevent_authorized - prevents If-Modified-Since header handling for authorized users. Default true.
 * prevent_session - prevents If-Modified-Since header handling when any of the values (comma-separated list) occur in session names. Default minishop2.
 * exclude - prevents If-Modified-Since header handling for any of listed document ids (comma-separated list). Empty by default.
+
+**Please note**, when the 304 response code is returned, it terminates the execution of the script (this is an implicit redirection to [a cached resource](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/304)).
+If this behavior is undesirable or affects the information presented on the site, as with `Minishop`, feel free to use the `prevent_session` setting.
